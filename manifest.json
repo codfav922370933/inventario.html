@@ -1,0 +1,17 @@
+{
+  "name": "Botica Santillán - Inventario",
+  "short_name": "BS Inventario",
+  "description": "Control interno de inventario, ventas y kardex de Botica Santillán",
+  "start_url": "./inventario.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F4FC",
+  "theme_color": "#3D2899",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
