@@ -918,7 +918,7 @@ function renderDashboard(){
     return `<tr>
       <td class="cell-name">${escapeHtml(p.nombre)}<div class="cell-sub">${escapeHtml(p.laboratorio||'')}</div></td>
       <td>${escapeHtml(p.categoria||'—')}</td>
-      <td style="display:flex; align-items:center; gap:8px;"><div class="vial ${vialClass(p)}"></div>${p.stockActual}</td>
+      <td><span style="display:inline-flex; align-items:center; gap:8px;"><span class="vial ${vialClass(p)}"></span>${p.stockActual}</span></td>
       <td><span class="pill ${est.cls}">${est.label}</span></td>
     </tr>`;
   }).join('') || `<tr><td colspan="4" style="text-align:center; color:var(--ink-soft); padding:30px;">Sin productos todavía</td></tr>`;
@@ -953,7 +953,7 @@ function renderProductos(){
       <td class="cell-name">${escapeHtml(p.nombre)}<div class="cell-sub">${escapeHtml(p.laboratorio||'')} ${p.presentacion? '· '+escapeHtml(p.presentacion):''}</div></td>
       <td>${escapeHtml(p.categoria||'—')}</td>
       <td class="mono">${fmtMoney(p.precioVenta)}</td>
-      <td style="display:flex; align-items:center; gap:8px;"><div class="vial ${vialClass(p)}"></div>${p.stockActual}</td>
+      <td><span style="display:inline-flex; align-items:center; gap:8px;"><span class="vial ${vialClass(p)}"></span>${p.stockActual}</span></td>
       <td>${p.minimo ?? 0}</td>
       <td><span class="pill ${est.cls}">${est.label}</span></td>
       <td>
