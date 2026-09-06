@@ -648,9 +648,13 @@
         <div class="field-hint" style="margin-bottom:14px;">Registra con cuánto efectivo empiezas tu turno.</div>
         <div style="max-width:320px;">
           <div class="field-inline" style="margin-bottom:14px;">
-            <label>Monto de apertura (S/)</label>
-            <input id="caja-apertura-monto" type="number" min="0" step="0.01" value="0">
-          </div>
+  <label>Monto de apertura en efectivo (S/)</label>
+  <input id="caja-apertura-monto" type="number" min="0" step="0.01" value="0">
+</div>
+<div class="field-inline" style="margin-bottom:14px;">
+  <label>Saldo inicial en Yape (S/)</label>
+  <input id="caja-apertura-yape" type="number" min="0" step="0.01" value="0">
+</div>
           <button class="btn btn-teal" onclick="abrirCaja()">Abrir caja</button>
         </div>
       </div>
@@ -2252,7 +2256,7 @@ function renderCaja(){
     const esperado = (Number(abierta.montoApertura)||0) + efectivoDelTurno(abierta);
     document.getElementById('caja-info-apertura').textContent = fmtMoney(abierta.montoApertura||0);
     document.getElementById('caja-info-esperado').textContent = fmtMoney(esperado);
-    document.getElementById('caja-info-yape-esperado').textContent = fmtMoney(yapeDelTurno(abierta,'Negocio'));
+    document.getElementById('caja-info-yape-esperado').textContent = fmtMoney((Number(abierta.saldoYapeApertura)||0) + yapeDelTurno(abierta,'Negocio'));
     document.getElementById('caja-info-yape-gerente').textContent = fmtMoney(yapeDelTurno(abierta,'Gerente'));
     document.getElementById('caja-info-desde').textContent =
       abierta.fechaApertura && abierta.fechaApertura.toDate ? abierta.fechaApertura.toDate().toLocaleString('es-PE') : '—';
@@ -2296,15 +2300,18 @@ function renderCaja(){
 window.abrirCaja = async function(){
   if(cajaAbiertaDeUsuario()){ toast('Ya tienes una caja abierta — ciérrala antes de abrir otra'); return; }
   const monto = Number(document.getElementById('caja-apertura-monto').value)||0;
+  const saldoYape = Number(document.getElementById('caja-apertura-yape').value)||0;
   try{
     await addDoc(collection(db,'cajas'), {
       usuario: auth.currentUser.email,
       montoApertura: monto,
+      saldoYapeApertura: saldoYape,
       estado: 'abierta',
       fechaApertura: serverTimestamp()
     });
     toast('Caja abierta');
     document.getElementById('caja-apertura-monto').value = 0;
+    document.getElementById('caja-apertura-yape').value = 0;
   }catch(err){
     toast('Error: '+err.message);
   }
